@@ -1,4 +1,8 @@
 
+
+
+
+
 import React from 'react';
 import {
     AiOutlineSortAscending,
@@ -51,35 +55,45 @@ function TableHOC<T extends Object>(
 
                 <table className="table" {...getTableProps()}>
                     <thead>
-                        {headerGroups.map((headerGroup: HeaderGroup<T>) => (
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                        {column.render("Header")}
-                                        {column.isSorted && (
-                                            <span>
-                                                {" "}
-                                                {column.isSortedDesc ? (
-                                                    <AiOutlineSortDescending />
-                                                ) : (
-                                                    <AiOutlineSortAscending />
+                        {headerGroups.map((headerGroup: HeaderGroup<T>) => {
+                            const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps()
+                            return (
+
+                                <tr key={key}{...restHeaderGroupProps}>
+                                    {headerGroup.headers.map((column) => {
+                                        const { key, ...restColumn } = column.getHeaderProps(column.getSortByToggleProps())
+                                        return (
+                                            <th key={key} {...restColumn}>
+                                                {column.render("Header")}
+                                                {column.isSorted && (
+                                                    <span>
+                                                        {" "}
+                                                        {column.isSortedDesc ? (
+                                                            <AiOutlineSortDescending />
+                                                        ) : (
+                                                            <AiOutlineSortAscending />
+                                                        )}
+                                                    </span>
                                                 )}
-                                            </span>
-                                        )}
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
+                                            </th>
+                                        )
+                                    })}
+                                </tr>
+                            )
+                        })}
                     </thead>
                     <tbody {...getTableBodyProps()}>
                         {page.map((row: Row<T>) => {
                             prepareRow(row);
-
+                            const { key, ...restRowProps } = row.getRowProps()
                             return (
-                                <tr {...row.getRowProps()}>
-                                    {row.cells.map((cell: Cell<T>) => (
-                                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                                    ))}
+                                <tr key={key} {...restRowProps}>
+                                    {row.cells.map((cell: Cell<T>) => {
+                                        const { key, ...restCellProps } = cell.getCellProps();
+                                        return (
+                                            <td key={key}{...restCellProps}>{cell.render("Cell")}</td>
+                                        )
+                                    })}
                                 </tr>
                             );
                         })}

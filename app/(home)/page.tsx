@@ -18,6 +18,7 @@ import Link from "next/link";
 
 
 type DataType = {
+
   work_year: number;
   salary_in_usd: number;
   job_title: string;
@@ -101,6 +102,8 @@ const Table = () => {
       <h1 className="text-xl font-bold">The first table contains all the values from the api data provided from kaggle it contains column sorting as well as pagination. IT is RESPONSIVE ALSO. CLick on the column name to sort from ascending to descending  and vice versa</h1>
       <h1 className="text-3xl">Click on the button below to get the main Table</h1>
       <Link href={"/main-table"}> <button className="h-full text-white p-4 rounded-lg bg-black m-2">GO TO MAIN TABLE</button></Link>
+
+      Note: loading the values might take time
       <hr></hr>
       {Table}
     </div>

@@ -1,7 +1,7 @@
 
 
 
-
+//
 
 import React from 'react';
 import {
@@ -31,6 +31,7 @@ function TableHOC<T extends Object>(
             columns,
             data,
             initialState: {
+                // @ts-ignore
                 pageSize: 10,
             },
         };
@@ -39,13 +40,20 @@ function TableHOC<T extends Object>(
             getTableProps,
             getTableBodyProps,
             headerGroups,
+            // @ts-ignore
             page,
             prepareRow,
+            // @ts-ignore
             nextPage,
+            // @ts-ignore
             pageCount,
+            // @ts-ignore
             state: { pageIndex },
+            // @ts-ignore
             previousPage,
+            // @ts-ignore
             canNextPage,
+            // @ts-ignore
             canPreviousPage,
         } = useTable(options, useSortBy, usePagination);
 
@@ -61,20 +69,26 @@ function TableHOC<T extends Object>(
 
                                 <tr key={key}{...restHeaderGroupProps}>
                                     {headerGroup.headers.map((column) => {
-                                        const { key, ...restColumn } = column.getHeaderProps(column.getSortByToggleProps())
+                                        const { key, ...restColumn } =
+                                            // @ts-ignore
+                                            column.getHeaderProps(column.getSortByToggleProps())
                                         return (
                                             <th key={key} {...restColumn}>
                                                 {column.render("Header")}
-                                                {column.isSorted && (
-                                                    <span>
-                                                        {" "}
-                                                        {column.isSortedDesc ? (
-                                                            <AiOutlineSortDescending />
-                                                        ) : (
-                                                            <AiOutlineSortAscending />
-                                                        )}
-                                                    </span>
-                                                )}
+                                                {// @ts-ignore
+                                                    column.isSorted && (
+
+                                                        <span>
+
+
+                                                            {// @ts-ignore
+                                                                column.isSortedDesc ? (
+                                                                    <AiOutlineSortDescending />
+                                                                ) : (
+                                                                    <AiOutlineSortAscending />
+                                                                )}
+                                                        </span>
+                                                    )}
                                             </th>
                                         )
                                     })}
